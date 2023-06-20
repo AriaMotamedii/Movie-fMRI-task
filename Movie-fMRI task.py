@@ -113,20 +113,31 @@ for movie_index in range(len(questions_data)):
         core.wait(iti_duration)
 
     else:
-    # Display text choices
-    choice1_text = question_data[f'{cognitive_domain} - Choice 1']
-    choice2_text = question_data[f'{cognitive_domain} - Choice 2']
+        # Display text choices
+        choice1_text = question_data[f'{cognitive_domain} - Choice 1']
+        choice2_text = question_data[f'{cognitive_domain} - Choice 2']
 
-    choice1_text_stimulus = visual.TextStim(win, text=choice1_text, height=0.1)
-    choice2_text_stimulus = visual.TextStim(win, text=choice2_text, height=0.1)
+        # Randomize the correct choice between 'a' and 'b'
+        correct_choice = random.choice(['a', 'b'])
 
-    choice1_text_stimulus.draw()
-    win.flip()
-    core.wait(question_duration)
+        if correct_choice == 'a':
+            correct_choice_text = choice1_text
+            incorrect_choice_text = choice2_text
+        else:
+            correct_choice_text = choice2_text
+            incorrect_choice_text = choice1_text
 
-    choice2_text_stimulus.draw()
-    win.flip()
-    core.wait(iti_duration)
+        choice1_text_stimulus = visual.TextStim(win, text=choice1_text, height=0.1)
+        choice2_text_stimulus = visual.TextStim(win, text=choice2_text, height=0.1)
+
+        # Display the choices without indicating correctness
+        choice1_text_stimulus.draw()
+        win.flip()
+        core.wait(question_duration)
+
+        choice2_text_stimulus.draw()
+        win.flip()
+        core.wait(iti_duration)
 
 # Clean up
 win.close()
